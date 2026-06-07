@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GaraGEM</title>
+    <link rel="stylesheet" href="../SIDEBAR/estilo.css">
+    <link rel="stylesheet" href="/estiloMain.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script>
+      (function () {
+        var SESSAO_KEY = "garagem_sessao";
+        var ROTA_LOGIN = "../LOGIN/index.html";
+        var temSessao  =
+          localStorage.getItem(SESSAO_KEY) ||
+          sessionStorage.getItem(SESSAO_KEY);
+        if (!temSessao) {
+          window.location.replace(ROTA_LOGIN);
+        }
+      })();
+    </script>
+</head>
+<body>
+    <div class="layout-veiculos">
+        <div id="sidebar-container"></div>
+
+        <div class="container-veiculos">
+            <header class="header-veiculos">
+                <h2>Controle de Veículos</h2>
+            </header>
+            <div class="conteudo-veiculos">
+                <div class="conteudo-veiculos1">
+                    <div class="conteudo-veiculos1_1">
+                        <input class="buscarpor" id="buscarporid" type="text" placeholder="Buscar por placa ou proprietário...">
+                        <select class="veiculo-filtro" id="status-veiculo-id">
+                            <option value="todos">Todos os Status</option>
+                            <option value="fora">Fora</option>
+                            <option value="estacionado">Estacionado</option>
+                        </select>
+                    </div>
+                    <button id="botao-abrir-novocarro" onclick="abrirnovocarro()">
+                        <span class="iconemaisveiculo">+</span>
+                        <strong>Novo Veículo</strong>
+                    </button>
+                <div id="overlay-novocarro"></div>
+                <form id="janelanovocarro">
+                    <header class="headercarro">
+                        <h2>Novo Veículo</h2>
+                        <button id="botao-fechar-carro" type="button" onclick="fecharnovocarro()">
+                            X
+                        </button>
+                    </header>
+                    <div class="conteudocarro">
+                        <div class="conteudocarro1">
+                            <div class="campo-form-veiculos">
+                                <label>PLACA *</label>
+                                <input id="placa-veiculos" type="text" placeholder="ABC-1234">
+                            </div>
+                            <div class="campo-form-veiculos">
+                                <label>COR</label>
+                                <input id="cor-veiculos" type="text" placeholder="Prata">
+                            </div>
+                            <div class="campo-form-veiculos">
+                                <label>Matrícula</label>
+                                <input id="matricula-veiculos" type="text" placeholder="2025XXXXXX">
+                            </div>
+                        </div>
+                        <div class="conteudocarro2">
+                            <div class="campo-form-veiculos">
+                                <label>MODELO *</label>
+                                <input id="modelo-veiculos" type="text" placeholder="Civic, Onix...">
+                            </div>
+                            <div class="campo-form-veiculos">
+                                <label>PROPRIETÁRIO *</label>
+                                <input id="proprietario-veiculos" type="text" placeholder="Nome Completo">
+                            </div>
+                            <div class="campo-form-veiculos">
+                                <label>STATUS</label>
+                                <select id="status-veiculos" class="selectcarro">
+                                    <option value="fora">Fora</option>
+                                    <option value="estacionado">Estacionado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="footer-novocarro">
+                        <button id="botao-cancelar-carro" type="button" onclick="fecharnovocarro()">
+                            <strong>Cancelar</strong>
+                        </button>
+                        <button id="botao-salvar-carro" type="submit" onclick="fecharnovocarro()">
+                            <strong>Salvar</strong>
+                        </button>
+                    </footer>
+                </form>
+                </div>
+                <div class="conteudo-veiculos2">
+                    <div class="veiculos-lista-header">
+                        <h2>Veículos Cadastrados</h2>
+                        <span id="contador-veiculos"></span>
+                    </div>
+                    <div class="conteudo-tabela-veiculos">
+                        <table class="veiculos-tabela">
+                            <thead class="veiculos-tabela-head">
+                                <tr>
+                                    <th>PLACA</th>
+                                    <th>MODELO</th>
+                                    <th>COR</th>
+                                    <th>PROPRIETÁRIO</th>
+                                    <th>MATRÍCULA</th>
+                                    <th>STATUS</th>
+                                    <th>AÇÕES</th>
+                                </tr>
+                            </thead>
+                            <tbody id="veiculos-tabela-body">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts carregados no final do body (após o DOM existir) -->
+    <script src="../SIDEBAR/sidebar.js"></script>
+    <script src="/scriptMain.js"></script>
+</body>
+</html>

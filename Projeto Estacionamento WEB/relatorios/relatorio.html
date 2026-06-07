@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GaraGEM — Relatórios</title>
+    <link rel="stylesheet" href="../SIDEBAR/estilo.css">
+    <link rel="stylesheet" href="/estiloMain.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+          integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Proteção de rota: redireciona antes de qualquer renderização -->
+    <script>
+      (function () {
+        var SESSAO_KEY = "garagem_sessao";
+        var ROTA_LOGIN = "../LOGIN/index.html"; 
+        var temSessao  =
+          localStorage.getItem(SESSAO_KEY) ||
+          sessionStorage.getItem(SESSAO_KEY);
+        if (!temSessao) window.location.replace(ROTA_LOGIN);
+      })();
+    </script>
+
+    <style>
+      /* ── Layout ── */
+      .layout-relatorio {
+        display: flex;
+        min-height: 100vh;
+        background-color: var(--fundo-pagina);
+      }
+
+      .container-relatorio {
+        flex: 1;
+        margin-left: 250px;
+        min-height: 100vh;
+        background-color: var(--fundo-pagina);
+      }
+
+      .header-relatorio {
+        background-color: var(--fundo-pagina2);
+        padding: 20px;
+        font-family: var(--fonte-main);
+        border-bottom: 1px solid var(--cor-borda);
+      }
+
+      .conteudo-relatorio {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        margin-top: 10px;
+      }
+
+      /* ── Painel de Filtros ── */
+      .painel-filtros {
+        background-color: var(--fundo-pagina2);
+        border-radius: 10px;
+        border: 1px solid var(--cor-borda);
+        padding: 20px;
+      }
+
+      .painel-filtros h3 {
+        font-family: var(--fonte-main);
+        font-size: 14px;
+        color: var(--cor-fonteMain2);
+        margin-bottom: 14px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+
+      .filtros-linha {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        align-items: flex-end;
+      }
+
+      .filtro-grupo {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        font-family: var(--fonte-main);
+      }
+
+      .filtro-grupo label {
+        font-size: 12px;
+        color: var(--cor-fonteMain2);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+      }
+
+      .filtro-grupo input,
+      .filtro-grupo select {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--cor-borda);
+        font-family: var(--fonte-main);
+        font-size: 14px;
+        background-color: var(--fundo-pagina2);
+        color: var(--cor-fonteMain);
+        min-width: 140px;
+      }
+
+      .filtro-grupo input:focus,
+      .filtro-grupo select:focus {
+        outline: 2px solid var(--cor-botao);
+        outline-offset: 1px;
+      }
+
+      .filtro-botoes {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        align-items: flex-end;
+      }
+
+      .btn-filtrar {
+        padding: 8px 20px;
+        border-radius: 8px;
+        border: none;
+        background-color: var(--cor-botao);
+        color: var(--cor-fonteMain3);
+        font-family: var(--fonte-main);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .btn-filtrar:hover {
+        background-color: var(--cor-hover-botao);
+      }
+
+      .btn-limpar {
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: 1px solid var(--cor-borda);
+        background-color: var(--fundo-pagina2);
+        color: var(--cor-fonteMain2);
+        font-family: var(--fonte-main);
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .btn-limpar:hover {
+        background-color: var(--fundo-pagina);
+      }
+
+      /* ── Cards de Resumo ── */
+      .cards-resumo {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+
+      .card-resumo {
+        background-color: var(--fundo-pagina2);
+        border-radius: 10px;
+        border: 1px solid var(--cor-borda);
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-family: var(--fonte-main);
+      }
+
+      .card-resumo-icone {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+
+      .icone-total    { background-color: #e8f0fe; color: var(--cor-botao); }
+      .icone-entrada  { background-color: #e6f4ea; color: #2e7d32; }
+      .icone-saida    { background-color: #fff3e0; color: #e65100; }
+      .icone-unicos   { background-color: #f3e5f5; color: #6a1b9a; }
+
+      .card-resumo-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .card-resumo-valor {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--cor-fonteMain);
+        line-height: 1;
+      }
+
+      .card-resumo-label {
+        font-size: 12px;
+        color: var(--cor-fonteMain2);
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+      }
+
+      /* ── Seção da Tabela ── */
+      .secao-tabela {
+        background-color: var(--fundo-pagina2);
+        border-radius: 10px;
+        border: 1px solid var(--cor-borda);
+        overflow: hidden;
+      }
+
+      .tabela-relatorio-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        border-bottom: 1px solid var(--cor-borda);
+        font-family: var(--fonte-main);
+      }
+
+      .tabela-relatorio-header h2 {
+        font-size: 16px;
+        color: var(--cor-fonteMain);
+      }
+
+      .btn-exportar-csv {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: 1px solid #2e7d32;
+        background-color: #e6f4ea;
+        color: #2e7d32;
+        font-family: var(--fonte-main);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .btn-exportar-csv:hover {
+        background-color: #2e7d32;
+        color: white;
+      }
+
+      .tabela-relatorio {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: var(--fonte-main);
+      }
+
+      .tabela-relatorio th {
+        padding: 12px 16px;
+        text-align: left;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--cor-fonteMain2);
+        background-color: #f8f9fa;
+        border-bottom: 1px solid var(--cor-borda);
+      }
+
+      .tabela-relatorio td {
+        padding: 13px 16px;
+        font-size: 14px;
+        color: var(--cor-fonteMain);
+        vertical-align: middle;
+      }
+
+      .tabela-relatorio tbody tr {
+        border-bottom: 1px solid #f0f0f0;
+        transition: background-color 0.15s;
+      }
+
+      .tabela-relatorio tbody tr:last-child {
+        border-bottom: none;
+      }
+
+      .tabela-relatorio tbody tr:hover {
+        background-color: #f8f9fa;
+      }
+
+      .placa-tag {
+        display: inline-block;
+        background-color: var(--fundo-pagina);
+        border: 1px solid var(--cor-borda);
+        border-radius: 5px;
+        padding: 2px 8px;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+      }
+
+      /* ── Badges de Status ── */
+      .badge-status {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .badge-estacionado {
+        background-color: #e3f0ff;
+        color: var(--cor-estacionado);
+        border: 1px solid #b3d1ff;
+      }
+
+      .badge-fora {
+        background-color: #fff4e6;
+        color: var(--cor-fora);
+        border: 1px solid #ffd9a8;
+      }
+
+      /* ── Estado vazio ── */
+      .relatorio-vazio {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 60px 20px;
+        color: var(--cor-fonteMain2);
+        font-family: var(--fonte-main);
+      }
+
+      .relatorio-vazio i {
+        font-size: 40px;
+        opacity: 0.4;
+      }
+
+      .relatorio-vazio p {
+        font-size: 15px;
+        opacity: 0.7;
+      }
+
+      /* ── Contador de resultados ── */
+      .contador-resultados {
+        font-size: 13px;
+        color: var(--cor-fonteMain2);
+        font-family: var(--fonte-main);
+      }
+
+      /* ── Coluna de permanência ── */
+      .tempo-tag {
+        font-size: 13px;
+        color: var(--cor-fonteMain2);
+        white-space: nowrap;
+      }
+
+      .tempo-andamento {
+        color: #2e7d32;
+        font-style: italic;
+        font-size: 12px;
+      }
+
+      /* ── Período badge ── */
+      .periodo-manha  { color: #e65100; }
+      .periodo-tarde  { color: #1565c0; }
+      .periodo-noite  { color: #4a148c; }
+    </style>
+</head>
+<body>
+<div class="layout-relatorio">
+    <div id="sidebar-container"></div>
+
+    <div class="container-relatorio">
+
+        <header class="header-relatorio">
+            <h2>Relatórios Operacionais</h2>
+        </header>
+
+        <div class="conteudo-relatorio">
+
+            <!-- ── Filtros ── -->
+            <div class="painel-filtros">
+                <h3><i class="fa-solid fa-filter"></i> &nbsp;Filtros</h3>
+                <div class="filtros-linha">
+
+                    <div class="filtro-grupo">
+                        <label>De</label>
+                        <input type="date" id="filtro-data-inicio">
+                    </div>
+
+                    <div class="filtro-grupo">
+                        <label>Até</label>
+                        <input type="date" id="filtro-data-fim">
+                    </div>
+
+                    <div class="filtro-grupo">
+                        <label>Placa</label>
+                        <input type="text" id="filtro-placa" placeholder="Ex: ABC-1234" maxlength="8">
+                    </div>
+
+                    <div class="filtro-grupo">
+                        <label>Status</label>
+                        <select id="filtro-status">
+                            <option value="todos">Todos</option>
+                            <option value="estacionado">Estacionado</option>
+                            <option value="fora">Saiu</option>
+                        </select>
+                    </div>
+
+                    <div class="filtro-grupo">
+                        <label>Período do dia</label>
+                        <select id="filtro-periodo">
+                            <option value="todos">Todos</option>
+                            <option value="manha">Manhã (6h–12h)</option>
+                            <option value="tarde">Tarde (12h–18h)</option>
+                            <option value="noite">Noite (18h–6h)</option>
+                        </select>
+                    </div>
+
+                    <div class="filtro-grupo filtro-botoes">
+                        <button class="btn-filtrar" id="btn-filtrar">
+                            <i class="fa-solid fa-magnifying-glass"></i> Filtrar
+                        </button>
+                        <button class="btn-limpar" id="btn-limpar">
+                            Limpar
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ── Cards de resumo ── -->
+            <div class="cards-resumo">
+
+                <div class="card-resumo">
+                    <div class="card-resumo-icone icone-total">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+                    <div class="card-resumo-info">
+                        <span class="card-resumo-valor" id="card-total">0</span>
+                        <span class="card-resumo-label">Total de Registros</span>
+                    </div>
+                </div>
+
+                <div class="card-resumo">
+                    <div class="card-resumo-icone icone-entrada">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </div>
+                    <div class="card-resumo-info">
+                        <span class="card-resumo-valor" id="card-entradas">0</span>
+                        <span class="card-resumo-label">Entradas no Período</span>
+                    </div>
+                </div>
+
+                <div class="card-resumo">
+                    <div class="card-resumo-icone icone-saida">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </div>
+                    <div class="card-resumo-info">
+                        <span class="card-resumo-valor" id="card-saidas">0</span>
+                        <span class="card-resumo-label">Saídas no Período</span>
+                    </div>
+                </div>
+
+                <div class="card-resumo">
+                    <div class="card-resumo-icone icone-unicos">
+                        <i class="fa-solid fa-car"></i>
+                    </div>
+                    <div class="card-resumo-info">
+                        <span class="card-resumo-valor" id="card-unicos">0</span>
+                        <span class="card-resumo-label">Placas Únicas</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ── Tabela de Resultados ── -->
+            <div class="secao-tabela">
+
+                <div class="tabela-relatorio-header">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <h2>Registros</h2>
+                        <span class="contador-resultados" id="contador-resultados"></span>
+                    </div>
+                    <button class="btn-exportar-csv" id="btn-exportar-csv">
+                        <i class="fa-solid fa-file-csv"></i> Exportar CSV
+                    </button>
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table class="tabela-relatorio">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Placa</th>
+                                <th>Modelo</th>
+                                <th>Proprietário</th>
+                                <th>Matrícula</th>
+                                <th>Entrada</th>
+                                <th>Saída</th>
+                                <th>Permanência</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-relatorio-body">
+                            <!-- Preenchido via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="relatorio-vazio" id="relatorio-vazio">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <p>Nenhum registro encontrado para os filtros selecionados.</p>
+                </div>
+
+            </div><!-- /secao-tabela -->
+
+        </div><!-- /conteudo-relatorio -->
+    </div><!-- /container-relatorio -->
+</div><!-- /layout-relatorio -->
+
+<script src="../SIDEBAR/sidebar.js"></script>
+<script src="../relatorios/scriptRelatorio.js"></script>
+</body>
+</html>
