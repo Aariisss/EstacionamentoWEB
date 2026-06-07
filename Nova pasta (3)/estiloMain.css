@@ -1,5 +1,7 @@
 /* VEICULOS */
 
+
+
 * {
     margin: 0;
     padding: 0;
@@ -201,6 +203,10 @@
     background-color: var(--cor-botao);
     color: var(--cor-fonteMain3)
 }
+#botao-salvar-carro:hover{
+    cursor: pointer;
+    background-color: var(--cor-hover-botao)
+}
 .veiculos-lista-header {
     display: flex;
     justify-content: space-between;
@@ -220,8 +226,11 @@
     border-collapse: collapse;
 }
 .veiculos-tabela th, .veiculos-tabela td {
-    padding: 15px 20px;
+    padding: 10px 15px;
     text-align: center;
+}
+.veiculos-tabela-head {
+    border-bottom: 1px solid var(--cor-borda)
 }
 .veiculos-tabela th {
     color: var(--cor-fonteMain);
@@ -246,10 +255,21 @@
     font-size: 20px;
 }
 
+
+
+
+
 /* USUARIOS */
+
+
+
+
+
 
 .container-usuarios {
     margin-left: 250px;
+    background-color: var(--fundo-pagina);
+    min-height: 100vh;
 }
 
 #formulario-novo-usuario {
@@ -276,4 +296,269 @@
     height: 100%;
     background: rgba(0,0,0,0.5);
     z-index: 999
+}
+
+.header-novo-usuario {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+    font-family: var(--fonte-main)
+}
+
+.conteudo-novo-usuario {
+    flex: 1;
+    display: flex;
+    gap: 30px;
+}
+.conteudo-novo-usuario1, .conteudo-novo-usuario2 {
+    font-family: var(--fonte-main);
+    color: var(--cor-fonteMain2);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.campo-form-usuarios {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#nome-usuario {
+    padding: 5px;
+    padding-right: 50px;
+    border-radius: 10px;
+    border: 1px solid var(--cor-borda)
+}
+#matricula-usuario {
+    padding: 5px;
+    padding-right: 50px;
+    border-radius: 10px;
+    border: 1px solid var(--cor-borda)
+}
+#senha-usuario {
+    padding: 5px;
+    padding-right: 50px;
+    border-radius: 10px;
+    border: 1px solid var(--cor-borda)
+}
+#email-usuario {
+    padding: 5px;
+    padding-right: 50px;
+    border-radius: 10px;
+    border: 1px solid var(--cor-borda)
+}
+#perfil-usuario {
+    padding: 5px;
+    padding-right: 50px;
+    border-radius: 10px;
+    border: 1px solid var(--cor-borda)
+}
+#status-usuario {
+    padding: 5px;
+    padding-right: 50px;
+    border-radius: 10px;
+    border: 1px solid var(--cor-borda)
+}
+.footer-novo-usuario {
+    display: flex;
+    gap: 5px;
+    justify-content: flex-end;
+    padding: 10px;
+}
+#botao-cancelar-usuario {
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: 1px solid var(--cor-borda);
+    background-color: var(--fundo-pagina2)
+}
+#botao-salvar-usuario {
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: none;
+    background-color: var(--cor-botao);
+    color: var(--cor-fonteMain3)
+}
+#fechar-novo-usuario {
+    padding: 10px;
+    border: none;
+    background-color: var(--fundo-pagina2);
+}
+#fechar-novo-usuario:hover {
+    cursor: pointer;
+}
+#botao-cancelar-usuario:hover {
+    cursor: pointer;
+}
+#botao-salvar-usuario:hover {
+    cursor: pointer;
+    background-color: var(--cor-hover-botao)
+}
+
+.header-usuarios {
+    background-color: var(--fundo-pagina2);
+    padding: 20px;
+    font-family: var(--fonte-main);
+    border-bottom: 1px solid var(--cor-borda);
+}
+.conteudo-usuarios {
+    padding: 20px;
+    margin-top: 30px;
+}
+.conteudo-usuarios1 {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+}
+.usuariobuscar {
+    font-family: var(--fonte-main);
+    padding: 10px;
+    width: 300px;
+    border-radius: 10px;
+    border: 1px solid var(--cor-borda)
+}
+#botao-abrir-novousuario {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--cor-botao);
+    color: var(--cor-fonteMain3)
+}
+
+#botao-abrir-novousuario:hover {
+    cursor: pointer;
+    background-color: var(--cor-hover-botao)
+}
+.iconemaisusuario {
+    font-size: 20px;
+}
+.usuarios-lista-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--fonte-main);
+    border-bottom: 1px solid var(--cor-borda);
+    padding: 20px;
+}
+.conteudo-usuarios2 {
+    margin-top: 30px;
+    background-color: var(--fundo-pagina2);
+    border-radius: 10px;
+    border: 1px solid var(--cor-borda);
+    padding: 0;
+}
+.usuarios-tabela {
+    width: 100%;
+    border-collapse: collapse;
+}
+.usuarios-tabela th, .usuarios-tabela td {
+    padding: 10px 15px;
+    text-align: center;
+}
+.usuarios-tabela-head {
+    border-bottom: 1px solid var(--cor-borda)
+}
+.usuarios-tabela tbody tr {
+    border-bottom: 1px solid var(--cor-borda);
+    font-family: var(--fonte-main)
+}
+.usuarios-tabela tbody tr:last-child {
+    border-bottom: none;
+}
+
+.usuarios-tabela th {
+    color: var(--cor-fonteMain);
+    font-family: var(--fonte-main)
+}
+
+
+
+
+
+/* ENTRADA E SAIDA  */
+
+
+
+
+
+.container-entrada {
+    margin-left: 250px;
+    background-color: var(--fundo-pagina);
+    min-height: 100vh;
+}
+.header-entrada {
+    background-color: var(--fundo-pagina2);
+    padding: 20px;
+    font-family: var(--fonte-main);
+    border-bottom: 1px solid var(--cor-borda);
+}
+.conteudo-entrada {
+    padding: 20px;
+    margin-top: 30px;
+}
+.mini-container-entrada1 {
+    display: flex;
+    gap: 20px;
+    padding-right: 10px;
+}
+.campo-entrada1 {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: var(--cor-fonteMain2);
+    font-family: var(--fonte-main);
+    font-size: 13px;
+}
+#buscar-placa-entrada {
+    padding: 8px;
+    width: 300px;
+    border-radius: 10px;
+    border: 1px solid var(--cor-borda)
+}
+
+#select-tipo-entrada {
+    padding: 8px;
+    width: 300px;
+    border-radius: 10px;
+    border: 1px solid var(--cor-borda)
+}
+
+#select-horario-entrada {
+    padding: 8px;
+    width: 300px;
+    border-radius: 10px;
+    border: 1px solid var(--cor-borda)
+}
+
+.mini-container-entrada2 {
+    margin-top: 30px;
+    background-color: var(--fundo-pagina2);
+    border-radius: 10px;
+    border: 1px solid var(--cor-borda);
+    padding: 0;
+}
+
+.header-mini-entrada2 {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--fonte-main);
+    border-bottom: 1px solid var(--cor-borda);
+    padding: 20px;
+}
+
+.entrada-tabela {
+    width: 100%;
+    border-collapse: collapse;
+}
+.entrada-tabela th, .entrada-tabela td {
+    padding: 10px 15px;
+    text-align: center;
+}
+.entrada-tabela th {
+    color: var(--cor-fonteMain);
+    font-family: var(--fonte-main)
+}
+.entrada-tabela-head {
+    border-bottom: 1px solid var(--cor-borda)
 }

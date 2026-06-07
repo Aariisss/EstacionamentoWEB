@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GaraGEM</title>
+    <link rel="stylesheet" href="SIDEBAR/estilo.css">
+    <link rel="stylesheet" href="estiloMain.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="layout-entrada">
+        <div id="sidebar-container"></div>
+
+        <div class="container-entrada">
+            <header class="header-entrada">
+                <h2>Fluxo de Entrada e Saída</h2>
+            </header>
+            <div class="conteudo-entrada">
+                <div class="mini-container-entrada1">
+                    <div class="campo-entrada1">
+                        <label><strong>BUSCAR PLACA</strong></label>
+                        <input id="buscar-placa-entrada" placeholder="ABC-1234">
+                    </div>
+                    <div class="campo-entrada1">
+                        <label><strong>TIPO</strong></label>
+                        <select id="select-tipo-entrada">
+                            <option>Todos</option>
+                            <option>Entrada</option>
+                            <option>Saída</option>
+                        </select>
+                    </div>
+                    <div class="campo-entrada1">
+                        <label><strong>HORÁRIO</strong></label>
+                        <select id="select-horario-entrada">
+                            <option>Manhã (06-12h)</option>
+                            <option>Tarde (12-18h)</option>
+                            <option>Noite (18-23h)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mini-container-entrada2">
+                    <div class="header-mini-entrada2">
+                        <h2>Movimentações</h2>
+                        <span id="contador-entrada">111</span>
+                    </div>
+                    <table class="entrada-tabela">
+                        <thead class="entrada-tabela-head">
+                            <tr>
+                                <th>TIPO</th>
+                                <th>PLACA</th>
+                                <th>HORÁRIO</th>
+                                <th>TEMPO PERMANÊNCIA</th>
+                                <th>IMAGEM</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="entrada-tabela-body"></tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="SIDEBAR/sidebar.js"></script>
+    <script src="scriptMain.js"></script>
+</body>
+</html>
