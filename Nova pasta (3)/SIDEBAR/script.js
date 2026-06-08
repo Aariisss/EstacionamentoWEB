@@ -1,37 +1,88 @@
+// Chaves do localStorage — iguais em login.js, script.js e scriptMain.js
+const SESSAO_KEY   = "garagem_sessao";
+const USUARIOS_KEY = "garagem_usuarios";
+
+
+// ─────────────────────────────────────────────────────────────
+//  INICIAIS DO AVATAR
+// ─────────────────────────────────────────────────────────────
 function gerarIniciais(nome) {
     return nome
         .split(" ")
         .map(palavra => palavra[0])
         .join("")
-        .toUpperCase();
-}
-const userMock = {
-    nome: "Administrador",
-    funcao: "Admin",
-    iniciais: gerarIniciais("Administrador")
+        .toUpperCase()
+        .slice(0, 2);
 }
 
 
-localStorage.setItem("usuario", JSON.stringify(userMock));
-
+// ─────────────────────────────────────────────────────────────
+//  CARREGAR DADOS DO USUÁRIO NA SIDEBAR
+// ─────────────────────────────────────────────────────────────
 function carregarUsuario() {
-    const dados = localStorage.getItem("usuario");
-    if (!dados) return;
+    const dados =
+        localStorage.getItem(SESSAO_KEY) ||
+        sessionStorage.getItem(SESSAO_KEY);
+
+    if (!dados) {
+        window.location.href = "../LOGIN/index.html";
+        return;
+    }
+
     const usuario = JSON.parse(dados);
 
-    document.getElementById("usuarionome").textContent = usuario.nome;
-    document.getElementById("usuariofuncao").textContent = usuario.funcao;
-    document.getElementById("fotouser").textContent = usuario.iniciais;
+    const elNome   = document.getElementById("usuarionome");
+    const elFuncao = document.getElementById("usuariofuncao");
+    const elFoto   = document.getElementById("fotouser");
+
+    if (elNome)   elNome.textContent   = usuario.nome;
+    if (elFuncao) elFuncao.textContent = usuario.funcao;
+    if (elFoto)   elFoto.textContent   = usuario.iniciais || gerarIniciais(usuario.nome);
 }
 
-carregarUsuario();
 
+// ─────────────────────────────────────────────────────────────
+//  PROTEÇÃO DE ROTA — verifica se o usuário está logado
+// ─────────────────────────────────────────────────────────────
+function verificarSessao() {
+    const dados =
+        localStorage.getItem(SESSAO_KEY) ||
+        sessionStorage.getItem(SESSAO_KEY);
+
+    if (!dados) {
+        window.location.href = "../LOGIN/index.html";
+        return null;
+    }
+
+    return JSON.parse(dados);
+}
+
+
+// ─────────────────────────────────────────────────────────────
+//  INIT — tudo dentro do DOMContentLoaded
+//  A sidebar é injetada via fetch/innerHTML na página pai,
+//  então o .logoutarea só existe após o DOM estar completo
+// ─────────────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
+
+    // 1. Preenche nome, função e iniciais na sidebar
+    carregarUsuario();
+
+    // 2. Logout — busca o botão após o DOM estar pronto
     const logoutBtn = document.querySelector(".logoutarea");
-    logoutBtn.addEventListener("click", () => {
-        localStorage.removeItem("usuario");
-        Swal.fire("Você saiu do sistema").then(() => {
-            window.location.href = "login.html";
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => {
+            localStorage.removeItem(SESSAO_KEY);
+            sessionStorage.removeItem(SESSAO_KEY);
+
+            Swal.fire({
+                icon:              "success",
+                title:             "Você saiu do sistema",
+                timer:             1500,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = "../LOGIN/index.html";
+            });
         });
-    });
+    }
 });
