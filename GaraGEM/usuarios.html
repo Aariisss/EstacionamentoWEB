@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GaraGEM</title>
+    <link rel="stylesheet" href="SIDEBAR/estilo.css">
+    <link rel="stylesheet" href="estiloMain.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="layout-usuarios">
+        <div id="sidebar-container"></div>
+
+        <div class="container-usuarios">
+            <header class="header-usuarios">
+                <h2>Gestão de Usuários</h2>
+            </header>
+            <div class="conteudo-usuarios">
+                <div class="conteudo-usuarios1">
+                    <input class="usuariobuscar" id="buscar-usuario-id" placeholder="Buscar por nome ou matrícula...">
+                    <button id="botao-abrir-novousuario" onclick="abrirnovousuario()">
+                        <span class="iconemaisusuario">+</span>
+                        <strong>Novo Usuário</strong>
+                    </button>
+                    <div id="overlay-novousuario"></div>
+                    <form id="formulario-novo-usuario">
+                        <header class="header-novo-usuario">
+                            <h2>Novo Usuário </h2>
+                            <button id="fechar-novo-usuario" type="button" onclick="fecharnovousuario()">
+                                X
+                            </button>
+                        </header>
+                        <div class="conteudo-novo-usuario">
+                            <div class="conteudo-novo-usuario1">
+                                <div class="campo-form-usuarios">
+                                    <label>NOME *</label>
+                                    <input id="nome-usuario" type="text" placeholder="Nome Completo">
+                                </div>
+                                <div class="campo-form-usuarios">
+                                    <label>MATRÍCULA *</label>
+                                    <input id="matricula-usuario" type="text" placeholder="2025XXXXXX">
+                                </div>
+                                <div class="campo-form-usuarios">
+                                    <label>SENHA</label>
+                                    <input id="senha-usuario" type="password" placeholder="Minímo 6 caracteres">
+                                </div>
+                            </div>
+                            <div class="conteudo-novo-usuario2">
+                                <div class="campo-form-usuarios">
+                                    <label>EMAIL *</label>
+                                    <input id="email-usuario" type="email" placeholder="email@exemplo.com">
+                                </div>
+                                <div class="campo-form-usuarios">
+                                    <label>PERFIL</label>
+                                    <select id="perfil-usuario">
+                                        <option>Operador</option>
+                                        <option value="Admin">Administrador</option>
+                                        <option>Vigia</option>
+                                    </select>
+                                </div>
+                                <div class="campo-form-usuarios">
+                                    <select id="status-usuario">
+                                        <option>Ativo</option>
+                                        <option>Inativo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    <footer class="footer-novo-usuario">
+                        <button id="botao-cancelar-usuario" type="button" onclick="fecharnovousuario()">
+                            <strong>Cancelar</strong>
+                        </button>
+                        <button
+                        id="botao-salvar-usuario"
+                        type="submit">
+                            <strong>Salvar</strong>
+                        </button>
+                    </footer>
+                    </form>
+                </div>
+                <div class="conteudo-usuarios2">
+                    <div class="usuarios-lista-header">
+                        <h2>Usuários Cadastrados</h2>
+                        <span id="contador-usuarios"></span>
+                    </div>
+                    <table class="usuarios-tabela">
+                        <thead class="usuarios-tabela-head">
+                            <tr>
+                                <th>NOME</th>
+                                <th>EMAIL</th>
+                                <th>MATRÍCULA</th>
+                                <th>PERFIL</th>
+                                <th>STATUS</th>
+                                <th>AÇÕES</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usuarios-tabela-body">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="SIDEBAR/sidebar.js"></script>
+    <script src="scriptMain.js"></script>
+</body>
+</html>
