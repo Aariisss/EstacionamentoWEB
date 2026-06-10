@@ -516,7 +516,8 @@
 }
 .usuarios-tabela tbody tr {
     border-bottom: 1px solid var(--cor-borda);
-    font-family: var(--fonte-main)
+    font-family: var(--fonte-main);
+    font-size: 13px;
 }
 .usuarios-tabela tbody tr:last-child {
     border-bottom: none;
@@ -528,7 +529,25 @@
 }
 
 
+.status-ativo {
+    color: var(--cor-ativo);
+    background-color: var(--cor-ativo-bg);
+    border: 1px solid var(--cor-ativo);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-weight: 600;
+    display: inline-block;
+}
 
+.status-inativo {
+    color: var(--cor-inativo);
+    background-color: var(--cor-inativo-bg);
+    border: 1px solid var(--cor-inativo);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-weight: 600;
+    display: inline-block;
+}
 
 
 /* ENTRADA E SAIDA  */

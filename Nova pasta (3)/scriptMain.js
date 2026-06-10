@@ -209,8 +209,371 @@ document.addEventListener("DOMContentLoaded", () => {
 // USUARIOS
 
 
+/* =========================
+   USUÁRIOS
+========================= */
 
+if (document.getElementById("usuarios-tabela-body")) {
 
+    let indiceEditandoUsuario = null;
+
+    let usuarios = JSON.parse(
+        localStorage.getItem("usuarios")
+    );
+
+    if (!usuarios) {
+
+        usuarios = [
+            {
+                nome: "João Silva",
+                email: "joao@email.com",
+                matricula: "2025000001",
+                perfil: "Administrador",
+                status: "Ativo"
+            },
+            {
+                nome: "Maria Souza",
+                email: "maria@email.com",
+                matricula: "2025000002",
+                perfil: "Operador",
+                status: "Inativo"
+            }
+        ];
+
+        localStorage.setItem(
+            "usuarios",
+            JSON.stringify(usuarios)
+        );
+    }
+
+    function abrirnovousuario() {
+
+        document.querySelector(
+            ".header-novo-usuario h2"
+        ).textContent = "Novo Usuário";
+
+        indiceEditandoUsuario = null;
+
+        document.getElementById(
+            "overlay-novousuario"
+        ).style.display = "block";
+
+        document.getElementById(
+            "formulario-novo-usuario"
+        ).style.display = "block";
+
+        document.getElementById(
+            "formulario-novo-usuario"
+        ).reset();
+    }
+
+    function fecharnovousuario() {
+
+        indiceEditandoUsuario = null;
+
+        document.getElementById(
+            "formulario-novo-usuario"
+        ).reset();
+
+        document.getElementById(
+            "overlay-novousuario"
+        ).style.display = "none";
+
+        document.getElementById(
+            "formulario-novo-usuario"
+        ).style.display = "none";
+    }
+
+    window.abrirnovousuario =
+        abrirnovousuario;
+
+    window.fecharnovousuario =
+        fecharnovousuario;
+
+    function renderizarTabelaUsuarios(
+        lista = usuarios
+    ) {
+
+        const tbody =
+            document.getElementById(
+                "usuarios-tabela-body"
+            );
+
+        tbody.innerHTML = "";
+
+        lista.forEach(
+            (usuario, indice) => {
+
+                tbody.innerHTML += `
+                    <tr>
+
+                        <td>
+                            ${usuario.nome}
+                        </td>
+
+                        <td>
+                            ${usuario.email}
+                        </td>
+
+                        <td>
+                            ${usuario.matricula}
+                        </td>
+
+                        <td>
+                            ${usuario.perfil}
+                        </td>
+
+                        <td>
+                            <span class="status-${usuario.status.toLowerCase()}">
+                                ${usuario.status}
+                            </span>
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="botao-editar-veiculo"
+                                onclick="editarUsuario(${indice})">
+
+                                <i class="fa-solid fa-pen-to-square"></i>
+
+                            </button>
+
+                            <button
+                                class="botao-excluir-veiculo"
+                                onclick="excluirUsuario(${indice})">
+
+                                <i class="fa-solid fa-trash"
+                                   style="color:red;">
+                                </i>
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+                `;
+            }
+        );
+
+        document.getElementById(
+            "contador-usuarios"
+        ).textContent =
+            `${usuarios.length} Registrado(s)`;
+    }
+
+    window.editarUsuario =
+        function(indice) {
+
+            const usuario =
+                usuarios[indice];
+
+            document.getElementById(
+                "nome-usuario"
+            ).value = usuario.nome;
+
+            document.getElementById(
+                "email-usuario"
+            ).value = usuario.email;
+
+            document.getElementById(
+                "matricula-usuario"
+            ).value = usuario.matricula;
+
+            document.getElementById(
+                "perfil-usuario"
+            ).value = usuario.perfil;
+
+            document.getElementById(
+                "status-usuario"
+            ).value = usuario.status;
+
+            indiceEditandoUsuario =
+                indice;
+
+            document.querySelector(
+                ".header-novo-usuario h2"
+            ).textContent =
+                "Editar Usuário";
+
+            document.getElementById(
+                "overlay-novousuario"
+            ).style.display =
+                "block";
+
+            document.getElementById(
+                "formulario-novo-usuario"
+            ).style.display =
+                "block";
+        };
+
+    window.excluirUsuario =
+        function(indice) {
+
+            Swal.fire({
+
+                title:
+                    "Excluir usuário?",
+
+                icon:
+                    "warning",
+
+                showCancelButton:
+                    true,
+
+                confirmButtonText:
+                    "Excluir"
+
+            }).then((resultado) => {
+
+                if (
+                    resultado.isConfirmed
+                ) {
+
+                    usuarios.splice(
+                        indice,
+                        1
+                    );
+
+                    localStorage.setItem(
+                        "usuarios",
+                        JSON.stringify(
+                            usuarios
+                        )
+                    );
+
+                    renderizarTabelaUsuarios();
+
+                    Swal.fire(
+                        "Excluído!",
+                        "",
+                        "success"
+                    );
+                }
+
+            });
+        };
+
+    document
+        .getElementById(
+            "formulario-novo-usuario"
+        )
+        .addEventListener(
+            "submit",
+            function(e) {
+
+                e.preventDefault();
+
+                const usuario = {
+
+                    nome:
+                        document.getElementById(
+                            "nome-usuario"
+                        ).value,
+
+                    email:
+                        document.getElementById(
+                            "email-usuario"
+                        ).value,
+
+                    matricula:
+                        document.getElementById(
+                            "matricula-usuario"
+                        ).value,
+
+                    perfil:
+                        document.getElementById(
+                            "perfil-usuario"
+                        ).value,
+
+                    status:
+                        document.getElementById(
+                            "status-usuario"
+                        ).value
+                };
+
+                if (
+                    indiceEditandoUsuario
+                    !== null
+                ) {
+
+                    usuarios[
+                        indiceEditandoUsuario
+                    ] = usuario;
+
+                    Swal.fire({
+                        icon:
+                            "success",
+                        title:
+                            "Usuário atualizado!"
+                    });
+
+                } else {
+
+                    usuarios.push(
+                        usuario
+                    );
+
+                    Swal.fire({
+                        icon:
+                            "success",
+                        title:
+                            "Usuário cadastrado!"
+                    });
+                }
+
+                localStorage.setItem(
+                    "usuarios",
+                    JSON.stringify(
+                        usuarios
+                    )
+                );
+
+                renderizarTabelaUsuarios();
+
+                fecharnovousuario();
+            }
+        );
+
+    document
+        .getElementById(
+            "buscar-usuario-id"
+        )
+        .addEventListener(
+            "input",
+            function() {
+
+                const termo =
+                    this.value
+                        .toLowerCase();
+
+                const usuariosFiltrados =
+                    usuarios.filter(
+                        usuario =>
+
+                            usuario.nome
+                                .toLowerCase()
+                                .includes(
+                                    termo
+                                )
+
+                            ||
+
+                            usuario.matricula
+                                .toLowerCase()
+                                .includes(
+                                    termo
+                                )
+                    );
+
+                renderizarTabelaUsuarios(
+                    usuariosFiltrados
+                );
+            }
+        );
+
+    renderizarTabelaUsuarios();
+}
 
 
 
@@ -237,7 +600,7 @@ const dadosEntrada = [
     {
         tipo:"Entrada",
         placa: "ABC-1234",
-        horarioEntrada: "2026-06-07 07:12",
+        horarioEntrada: "2026-06-09 07:12",
         horarioSaida: null,
         imagem: "assets/carro1.jpg",
         status: "Estacionado"
