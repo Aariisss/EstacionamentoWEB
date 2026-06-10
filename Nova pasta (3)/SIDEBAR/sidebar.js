@@ -129,3 +129,20 @@ document.addEventListener(
 
     }
 );
+
+const botaoMenu = document.createElement("button");
+
+botaoMenu.innerHTML = '<i class="fa-solid fa-bars"></i>';
+
+botaoMenu.classList.add("menu-mobile");
+
+document.body.appendChild(botaoMenu);
+
+botaoMenu.addEventListener("click", () => {
+
+    document
+        .querySelector(".container")
+        .classList
+        .toggle("aberta");
+
+});
