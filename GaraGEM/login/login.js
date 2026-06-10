@@ -1,15 +1,12 @@
 const ROTA_APP   = "../entrada.html";
 const ROTA_LOGIN = "../LOGIN/index.html";
 
-// Chaves do localStorage — iguais em login.js, sidebar.js e scriptMain.js
+
 const SESSAO_KEY   = "garagem_sessao";
 const USUARIOS_KEY = "garagem_usuarios";
 
 
-// ─────────────────────────────────────────────────────────────
-//  ADMIN PADRÃO — criado APENAS aqui, APENAS no login.js
-//  scriptMain.js NÃO chama esta função
-// ─────────────────────────────────────────────────────────────
+
 function criarAdminPadrao() {
 
     let usuarios =
@@ -45,9 +42,7 @@ function criarAdminPadrao() {
 criarAdminPadrao();
 
 
-// ─────────────────────────────────────────────────────────────
-//  HELPERS DE UI
-// ─────────────────────────────────────────────────────────────
+
 function mostrarErro(inputEl, mensagem) {
     inputEl.style.borderBottom = "2px solid #e53e3e";
     let erro = inputEl.parentElement.querySelector(".msg-erro");
@@ -72,9 +67,7 @@ function navegarPara(pagina) {
 }
 
 
-// ─────────────────────────────────────────────────────────────
-//  GERENCIAMENTO DE USUÁRIOS — localStorage
-// ─────────────────────────────────────────────────────────────
+
 function getUsuarios() {
     return JSON.parse(localStorage.getItem(USUARIOS_KEY) || "[]");
 }
@@ -131,9 +124,7 @@ function gerarIniciais(nome) {
 }
 
 
-// ─────────────────────────────────────────────────────────────
-//  GERENCIAMENTO DE SESSÃO
-// ─────────────────────────────────────────────────────────────
+
 function getSessao() {
     const ls = localStorage.getItem(SESSAO_KEY);
     if (ls) return JSON.parse(ls);
@@ -162,9 +153,7 @@ function encerrarSessao() {
 }
 
 
-// ─────────────────────────────────────────────────────────────
-//  PROTEÇÃO DE ROTA
-// ─────────────────────────────────────────────────────────────
+
 function redirecionarSeLogado() {
 
     const sessao =
@@ -184,9 +173,7 @@ function redirecionarSeLogado() {
 }
 
 
-// ─────────────────────────────────────────────────────────────
-//  PÁGINA: index.html — Login
-// ─────────────────────────────────────────────────────────────
+
 function iniciarLogin() {
     redirecionarSeLogado();
 
@@ -250,9 +237,7 @@ function iniciarLogin() {
 }
 
 
-// ─────────────────────────────────────────────────────────────
-//  PÁGINA: email.html — 1ª etapa do cadastro (e-mail)
-// ─────────────────────────────────────────────────────────────
+
 function iniciarEmail() {
     const emailInput = document.getElementById("email");
     const btnNext    = document.querySelector(".btn-next");
@@ -286,9 +271,7 @@ function iniciarEmail() {
 }
 
 
-// ─────────────────────────────────────────────────────────────
-//  PÁGINA: confirmacao-email.html — Código de 6 dígitos
-// ─────────────────────────────────────────────────────────────
+
 function iniciarConfirmacaoEmail() {
     const inputs  = document.querySelectorAll(".codigo-input");
     const btnNext = document.querySelector(".btn-next");
@@ -329,9 +312,7 @@ function iniciarConfirmacaoEmail() {
 }
 
 
-// ─────────────────────────────────────────────────────────────
-//  PÁGINA: cadastro.html — Dados do novo usuário
-// ─────────────────────────────────────────────────────────────
+
 function iniciarCadastro() {
     const usuarioInput        = document.getElementById("usuario");
     const senhaInput          = document.getElementById("senha");
@@ -400,9 +381,7 @@ function iniciarCadastro() {
 }
 
 
-// ─────────────────────────────────────────────────────────────
-//  PÁGINA: senha-recuperacao.html — Informe o e-mail
-// ─────────────────────────────────────────────────────────────
+
 function iniciarSenhaRecuperacao() {
     const emailInput = document.getElementById("email");
     const btnNext    = document.querySelector(".btn-next");
@@ -435,9 +414,7 @@ function iniciarSenhaRecuperacao() {
 }
 
 
-// ─────────────────────────────────────────────────────────────
-//  PÁGINA: redefinir-senha.html — Nova senha
-// ─────────────────────────────────────────────────────────────
+
 function iniciarRedefinirSenha() {
     const senhaInput          = document.getElementById("senha");
     const confirmarSenhaInput = document.getElementById("confirmar-senha");
@@ -485,9 +462,7 @@ function iniciarRedefinirSenha() {
 }
 
 
-// ─────────────────────────────────────────────────────────────
-//  DISPATCHER — detecta a página atual e chama a função certa
-// ─────────────────────────────────────────────────────────────
+
 document.addEventListener("DOMContentLoaded", function () {
     const pagina =
         window.location.pathname.split("/").pop() || "index.html";
