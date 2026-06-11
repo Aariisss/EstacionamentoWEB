@@ -1,0 +1,413 @@
+/* ============================================================
+   mobile.css — Responsividade para celulares (GaraGEM)
+   Aplicado em todas as páginas. Não altera o design desktop.
+   Breakpoint principal: 768px
+   ============================================================ */
+
+
+/* ──────────────────────────────────────────
+   HEADER MOBILE: espaço para o botão hambúrguer
+   ────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    /* Empurra o título do header para não ficar atrás do botão hambúrguer */
+    .header-veiculos,
+    .header-usuarios,
+    .header-entrada,
+    .header-relatorio,
+    .header-dashboard {
+        padding-left: 70px;
+    }
+
+    /* Header do dashboard: empilha título e data/hora */
+    .header-dashboard {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .data-hora-atual {
+        font-size: 12px;
+    }
+}
+
+
+/* ──────────────────────────────────────────
+   DASHBOARD — Cards e seções
+   ────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    /* Cards de estatísticas: 2 colunas em vez de 4 */
+    .cards-dashboard {
+        grid-template-columns: repeat(2, 1fr) !important;
+        display: grid !important;
+        flex-direction: unset !important;
+    }
+
+    /* Seções inferiores (gráfico + recentes): empilhadas */
+    .dashboard-secoes {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px;
+    }
+
+    .card-dash {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .card-dash-valor {
+        font-size: 22px;
+    }
+
+    .card-dash-icone {
+        width: 42px;
+        height: 42px;
+        font-size: 16px;
+    }
+
+    /* Gráfico: altura menor para caber na tela */
+    .grafico-container {
+        height: 220px;
+        padding: 14px;
+    }
+}
+
+
+/* ──────────────────────────────────────────
+   RELATÓRIO — Cards resumo e filtros
+   ────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    /* Cards resumo: 2 colunas */
+    .cards-resumo {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .card-resumo {
+        padding: 14px;
+        gap: 10px;
+    }
+
+    .card-resumo-valor {
+        font-size: 22px;
+    }
+
+    .card-resumo-icone {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    /* Filtros: cada grupo ocupa toda a largura */
+    .filtros-linha {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .filtro-grupo {
+        width: 100%;
+    }
+
+    .filtro-grupo input,
+    .filtro-grupo select {
+        width: 100%;
+        min-width: unset;
+    }
+
+    /* Botões de filtro lado a lado */
+    .filtro-botoes {
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    .btn-filtrar,
+    .btn-limpar {
+        flex: 1;
+    }
+
+    /* Header da tabela de relatório: empilha título e botão CSV */
+    .tabela-relatorio-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .btn-exportar-csv {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+/* ──────────────────────────────────────────
+   VEÍCULOS — Barra de busca + botão
+   ────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    /* Linha de busca + botão: empilha verticalmente */
+    .conteudo-veiculos1 {
+        flex-direction: column;
+        gap: 10px;
+        padding-right: 0;
+    }
+
+    /* Grupo de busca (input + select de status) ocupa toda largura */
+    .conteudo-veiculos1_1 {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .buscarpor {
+        width: 100% !important;
+    }
+
+    .veiculo-filtro {
+        width: 100%;
+    }
+
+    /* Botão "Novo Veículo" ocupa toda largura */
+    #botao-abrir-novocarro {
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    /* Header da lista de veículos: empilha */
+    .veiculos-lista-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+}
+
+
+/* ──────────────────────────────────────────
+   USUÁRIOS — Barra de busca + botão
+   ────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    .conteudo-usuarios1 {
+        flex-direction: column;
+        gap: 10px;
+        padding-right: 0;
+    }
+
+    .usuariobuscar {
+        width: 100% !important;
+    }
+
+    #botao-abrir-novousuario {
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .usuarios-lista-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+}
+
+
+/* ──────────────────────────────────────────
+   ENTRADA/SAÍDA — Header da tabela
+   ────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    .header-mini-entrada2 {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+}
+
+
+/* ──────────────────────────────────────────
+   MODAIS (Novo Veículo / Novo Usuário)
+   ────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    /* Modal ocupa quase toda a tela */
+    #janelanovocarro,
+    #formulario-novo-usuario {
+        width: 95vw;
+        max-height: 88vh;
+        padding: 16px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    /* Inputs do modal: largura total */
+    #placa-veiculos,
+    #cor-veiculos,
+    #matricula-veiculos,
+    #modelo-veiculos,
+    #proprietario-veiculos,
+    #status-veiculos,
+    #nome-usuario,
+    #matricula-usuario,
+    #senha-usuario,
+    #email-usuario,
+    #perfil-usuario,
+    #status-usuario {
+        width: 100%;
+        padding-right: 10px;
+    }
+
+    /* Footer do modal: botões lado a lado */
+    .footer-novocarro,
+    .footer-novo-usuario {
+        padding: 10px 0 0 0;
+    }
+
+    #botao-cancelar-carro,
+    #botao-salvar-carro,
+    #botao-cancelar-usuario,
+    #botao-salvar-usuario {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+
+/* ──────────────────────────────────────────
+   LOGIN — Caixa responsiva
+   ────────────────────────────────────────── */
+@media (max-width: 480px) {
+
+    .caixa {
+        width: 92vw;
+        height: auto;
+        padding: 28px 20px;
+        gap: 16px;
+    }
+
+    .caixa-email {
+        width: 92vw;
+        height: auto;
+        padding: 28px 20px;
+    }
+
+    .campo input {
+        width: 100%;
+    }
+
+    .btn-login,
+    .btn-confirmar {
+        width: 100%;
+        height: 60px;
+        font-size: 24px;
+        border-radius: 16px;
+    }
+
+    .btn-next {
+        width: 80px;
+        height: 60px;
+        font-size: 24px;
+    }
+
+    .caixa-header {
+        font-size: 22px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    .manter-logado {
+        font-size: 15px;
+    }
+
+    .rodape a {
+        font-size: 16px;
+    }
+
+    /* Código de verificação (confirmação de e-mail) */
+    .codigo-input {
+        width: 42px;
+        height: 42px;
+        font-size: 22px;
+    }
+}
+
+
+/* ──────────────────────────────────────────
+   SIDEBAR — Overlay ao abrir no mobile
+   ────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    /* Overlay escuro ao abrir a sidebar */
+    body.sidebar-open::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 1999;
+    }
+
+    /* Botão hambúrguer: tamanho de toque confortável */
+    .menu-mobile {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        font-size: 18px;
+    }
+}
+
+
+/* ──────────────────────────────────────────
+   TIPOGRAFIA — Ajustes gerais em telas pequenas
+   ────────────────────────────────────────── */
+@media (max-width: 480px) {
+
+    .header-veiculos h2,
+    .header-usuarios h2,
+    .header-entrada h2,
+    .header-relatorio h2,
+    .header-dashboard h2 {
+        font-size: 16px;
+    }
+
+    .veiculos-lista-header h2,
+    .usuarios-lista-header h2,
+    .header-mini-entrada2 h2,
+    .tabela-relatorio-header h2 {
+        font-size: 15px;
+    }
+
+    .boas-vindas {
+        font-size: 13px;
+    }
+}
+
+
+/* ──────────────────────────────────────────
+   CONTEÚDO PRINCIPAL — padding em telas pequenas
+   ────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    .conteudo-veiculos,
+    .conteudo-usuarios,
+    .conteudo-entrada,
+    .conteudo-relatorio,
+    .conteudo-dashboard {
+        padding: 14px;
+    }
+}
+
+
+/* ──────────────────────────────────────────
+   UTILITÁRIO — impede overflow horizontal na página
+   ────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    html, body {
+        overflow-x: hidden;
+    }
+}

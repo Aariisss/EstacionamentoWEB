@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GaraGEM — Login</title>
+    <link rel="stylesheet" href="{% static 'core/css/login/global-login.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/login/mobile-login.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+          integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="caixa">
+        <header class="caixa-header">
+            <h2>GaraGEM<i class="fa-regular fa-gem" style="color:rgb(116,192,252);"></i></h2>
+        </header>
+        <h1>Login</h1>
+
+        <div class="campo">
+            <input type="email" id="email" placeholder="Email" maxlength="35" required>
+        </div>
+        <div class="campo">
+            <input type="password" id="senha" placeholder="Senha" maxlength="35" required>
+        </div>
+        <div class="manter-logado">
+            <input type="checkbox" id="manter">
+            <label for="manter">Manter Login</label>
+        </div>
+
+        <button class="btn-login" type="button" id="btn-entrar">Entrar</button>
+
+        <div class="rodape">
+            <a href="{% url 'login' %}">Esqueceu sua senha?</a>
+            <a href="{% url 'cadastro' %}">Cadastre-se</a>
+        </div>
+    </div>
+
+    <script src="{% static 'core/js/login.js' %}"></script>
+
+    <script>
+        // Redireciona para dashboard após login (mock)
+        document.getElementById('btn-entrar').addEventListener('click', function () {
+            const email = document.getElementById('email').value.trim();
+            const senha = document.getElementById('senha').value.trim();
+            const manter = document.getElementById('manter').checked;
+
+            if (!email || !senha) {
+                Swal.fire({ icon: 'warning', title: 'Preencha e-mail e senha.' });
+                return;
+            }
+
+            const sessao = {
+                nome: 'Administrador',
+                funcao: 'Admin',
+                email: email,
+                iniciais: 'AD'
+            };
+
+            if (manter) {
+                localStorage.setItem('garagem_sessao', JSON.stringify(sessao));
+            } else {
+                sessionStorage.setItem('garagem_sessao', JSON.stringify(sessao));
+            }
+
+            window.location.href = "{% url 'dashboard' %}";
+        });
+    </script>
+</body>
+</html>

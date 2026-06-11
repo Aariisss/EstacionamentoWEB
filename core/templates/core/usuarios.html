@@ -1,0 +1,98 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block titulo %}Usuários{% endblock %}
+
+{% block conteudo %}
+<div class="layout-usuarios">
+    <div class="container-usuarios">
+
+        <header class="header-usuarios">
+            <h2>Gestão de Usuários</h2>
+        </header>
+
+        <div class="conteudo-usuarios">
+            <div class="conteudo-usuarios1">
+                <input class="usuariobuscar" id="buscar-usuario-id" placeholder="Buscar por nome ou matrícula...">
+                <button id="botao-abrir-novousuario" onclick="abrirnovousuario()">
+                    <span class="iconemaisusuario">+</span>
+                    <strong>Novo Usuário</strong>
+                </button>
+
+                <div id="overlay-novousuario"></div>
+                <form id="formulario-novo-usuario">
+                    <header class="header-novo-usuario">
+                        <h2>Novo Usuário</h2>
+                        <button id="fechar-novo-usuario" type="button" onclick="fecharnovousuario()">X</button>
+                    </header>
+                    <div class="conteudo-novo-usuario">
+                        <div class="conteudo-novo-usuario1">
+                            <div class="campo-form-usuarios">
+                                <label>NOME *</label>
+                                <input id="nome-usuario" type="text" placeholder="Nome Completo">
+                            </div>
+                            <div class="campo-form-usuarios">
+                                <label>MATRÍCULA *</label>
+                                <input id="matricula-usuario" type="text" placeholder="2025XXXXXX">
+                            </div>
+                            <div class="campo-form-usuarios">
+                                <label>SENHA</label>
+                                <input id="senha-usuario" type="password" placeholder="Mínimo 6 caracteres">
+                            </div>
+                        </div>
+                        <div class="conteudo-novo-usuario2">
+                            <div class="campo-form-usuarios">
+                                <label>EMAIL *</label>
+                                <input id="email-usuario" type="email" placeholder="email@exemplo.com">
+                            </div>
+                            <div class="campo-form-usuarios">
+                                <label>PERFIL</label>
+                                <select id="perfil-usuario">
+                                    <option>Operador</option>
+                                    <option value="Admin">Administrador</option>
+                                    <option>Vigia</option>
+                                </select>
+                            </div>
+                            <div class="campo-form-usuarios">
+                                <select id="status-usuario">
+                                    <option>Ativo</option>
+                                    <option>Inativo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="footer-novo-usuario">
+                        <button id="botao-cancelar-usuario" type="button" onclick="fecharnovousuario()">
+                            <strong>Cancelar</strong>
+                        </button>
+                        <button id="botao-salvar-usuario" type="submit">
+                            <strong>Salvar</strong>
+                        </button>
+                    </footer>
+                </form>
+            </div>
+
+            <div class="conteudo-usuarios2">
+                <div class="usuarios-lista-header">
+                    <h2>Usuários Cadastrados</h2>
+                    <span id="contador-usuarios"></span>
+                </div>
+                <table class="usuarios-tabela">
+                    <thead class="usuarios-tabela-head">
+                        <tr>
+                            <th>NOME</th>
+                            <th>EMAIL</th>
+                            <th>MATRÍCULA</th>
+                            <th>PERFIL</th>
+                            <th>STATUS</th>
+                            <th>AÇÕES</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usuarios-tabela-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

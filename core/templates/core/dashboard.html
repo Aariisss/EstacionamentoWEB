@@ -1,0 +1,100 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block titulo %}Dashboard{% endblock %}
+
+{% block head_extra %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block conteudo %}
+<div class="layout-dashboard">
+    <div class="container-dashboard">
+
+        <header class="header-dashboard">
+            <h2>Dashboard</h2>
+            <span class="data-hora-atual" id="data-hora-atual"></span>
+        </header>
+
+        <div class="conteudo-dashboard">
+
+            <p class="boas-vindas">Bem-vindo, <strong id="nome-usuario">Usuário</strong>. Aqui está o resumo de hoje.</p>
+
+            <div class="cards-dashboard">
+
+                <div class="card-dash card-azul">
+                    <div class="card-dash-icone">
+                        <i class="fa-solid fa-car"></i>
+                    </div>
+                    <div class="card-dash-info">
+                        <span class="card-dash-valor" id="card-estacionados">—</span>
+                        <span class="card-dash-label">Estacionados Agora</span>
+                    </div>
+                </div>
+
+                <div class="card-dash card-verde">
+                    <div class="card-dash-icone">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </div>
+                    <div class="card-dash-info">
+                        <span class="card-dash-valor" id="card-entradas">—</span>
+                        <span class="card-dash-label">Entradas Hoje</span>
+                    </div>
+                </div>
+
+                <div class="card-dash card-laranja">
+                    <div class="card-dash-icone">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </div>
+                    <div class="card-dash-info">
+                        <span class="card-dash-valor" id="card-saidas">—</span>
+                        <span class="card-dash-label">Saídas Hoje</span>
+                    </div>
+                </div>
+
+                <div class="card-dash card-roxo">
+                    <div class="card-dash-icone">
+                        <i class="fa-solid fa-square-parking"></i>
+                    </div>
+                    <div class="card-dash-info">
+                        <span class="card-dash-valor" id="card-vagas">—</span>
+                        <span class="card-dash-label">Vagas Disponíveis</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="dashboard-secoes">
+
+                <div class="painel-dash">
+                    <div class="painel-dash-header">
+                        <h3><i class="fa-solid fa-chart-bar" style="color:var(--cor-botao);margin-right:6px;"></i>Movimentações — últimos 7 dias</h3>
+                    </div>
+                    <div class="grafico-container">
+                        <canvas id="grafico-movimentacoes"></canvas>
+                    </div>
+                    <div class="barra-ocupacao">
+                        <div class="barra-ocupacao-label">
+                            <span>Ocupação atual</span>
+                            <span id="pct-ocupacao">0%</span>
+                        </div>
+                        <div class="barra-fundo">
+                            <div class="barra-preenchida" id="barra-preenchida" style="width:0%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="painel-dash">
+                    <div class="painel-dash-header">
+                        <h3><i class="fa-solid fa-clock-rotate-left" style="color:var(--cor-botao);margin-right:6px;"></i>Últimos Registros</h3>
+                        <span id="total-recentes"></span>
+                    </div>
+                    <div class="recentes-lista" id="recentes-lista"></div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

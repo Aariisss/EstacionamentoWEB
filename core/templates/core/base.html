@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GaraGEM — {% block titulo %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'core/css/sidebar/estilo.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/estiloMain.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/mobile.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+          integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+
+<!-- ── Sidebar ─────────────────────────────────────────── -->
+<div class="container" id="sidebar-container">
+    <div class="header">
+        <header>
+            <h2>Gara<span class="gem">GEM</span>
+                <i class="fa-regular fa-gem" style="color:rgb(116,192,252);"></i>
+            </h2>
+        </header>
+    </div>
+
+    <div class="Principal">
+        <h3 class="principaltexto">Principal</h3>
+        <a class="menu-item" href="{% url 'dashboard' %}">
+            <p class="menu-item"><i class="fa-solid fa-chart-line"></i> Dashboard</p>
+        </a>
+        <a class="menu-item" href="{% url 'entrada' %}">
+            <p class="menu-item"><i class="fa-solid fa-right-left"></i> Entrada/Saída</p>
+        </a>
+    </div>
+
+    <div class="Gestao">
+        <h3 class="gestaotexto">Gestão</h3>
+        <a class="menu-item" href="{% url 'veiculos' %}">
+            <p class="menu-item"><i class="fa-solid fa-car"></i> Veículos</p>
+        </a>
+        <a class="menu-item" href="{% url 'relatorio' %}">
+            <p class="menu-item"><i class="fa-solid fa-file-lines"></i> Relatório</p>
+        </a>
+        <a class="menu-item" href="{% url 'usuarios' %}">
+            <p class="menu-item"><i class="fa-solid fa-users"></i> Usuários</p>
+        </a>
+    </div>
+
+    <div class="footer">
+        <footer>
+            <div class="usuariofoto" id="fotouser">AD</div>
+            <div class="usuarioinfo" id="usuarioinfo">
+                <span id="usuarionome">Administrador</span>
+                <span id="usuariofuncao">Admin</span>
+            </div>
+            <div class="logoutarea" id="logoutarea">
+                <i class="fa-solid fa-arrow-right-from-bracket logout"></i>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- ── Botão hambúrguer (mobile) ───────────────────────── -->
+<button class="menu-mobile" id="btn-menu-mobile">
+    <i class="fa-solid fa-bars"></i>
+</button>
+
+<!-- ── Conteúdo da página ──────────────────────────────── -->
+{% block conteudo %}{% endblock %}
+
+<!-- ── Scripts ─────────────────────────────────────────── -->
+<script src="{% static 'core/js/mobile_sidebar.js' %}"></script>
+<script src="{% static 'core/js/scriptMain.js' %}"></script>
+{% block scripts %}{% endblock %}
+
+</body>
+</html>
