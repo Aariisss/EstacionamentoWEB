@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GaraGEM — Confirmação do Email</title>
+    <link rel="stylesheet" href="{% static 'core/css/login/global-login.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/login/mobile-login.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+          integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="caixa-email">
+        <header class="caixa-header">
+            <h2>GaraGEM<i class="fa-regular fa-gem" style="color:rgb(116,192,252);"></i></h2>
+        </header>
+        <h1>Digite o código enviado ao Email</h1>
+
+        <div class="codigo">
+            <input type="text" class="codigo-input" maxlength="1" inputmode="numeric" required>
+            <input type="text" class="codigo-input" maxlength="1" inputmode="numeric" required>
+            <input type="text" class="codigo-input" maxlength="1" inputmode="numeric" required>
+            <input type="text" class="codigo-input" maxlength="1" inputmode="numeric" required>
+            <input type="text" class="codigo-input" maxlength="1" inputmode="numeric" required>
+            <input type="text" class="codigo-input" maxlength="1" inputmode="numeric" required>
+        </div>
+
+        <button class="btn-next" type="button" id="btn-confirmar">
+            <img src="{% static 'core/login/assets/seta.png' %}" alt="seta">
+        </button>
+
+        <div class="rodape">
+            <a href="{% url 'email' %}">Não recebeu o código?</a>
+        </div>
+    </div>
+
+    <script src="{% static 'core/js/login.js' %}"></script>
+    <script>
+        const inputs = document.querySelectorAll('.codigo-input');
+        inputs.forEach((input, i) => {
+            input.addEventListener('input', () => {
+                if (input.value && i < inputs.length - 1) inputs[i + 1].focus();
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !input.value && i > 0) inputs[i - 1].focus();
+            });
+        });
+
+        document.getElementById('btn-confirmar').addEventListener('click', function () {
+            const codigo = [...inputs].map(i => i.value).join('');
+            if (codigo.length < 6) {
+                Swal.fire({ icon: 'warning', title: 'Digite o código completo.' });
+                return;
+            }
+            window.location.href = "{% url 'redefinir_senha' %}";
+        });
+    </script>
+</body>
+</html>

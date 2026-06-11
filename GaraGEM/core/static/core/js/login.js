@@ -1,6 +1,5 @@
 const ROTA_APP   = "/dashboard/";
-const ROTA_LOGIN = "../LOGIN/index.html";
-
+const ROTA_LOGIN = "/";
 
 const SESSAO_KEY   = "garagem_sessao";
 const USUARIOS_KEY = "garagem_usuarios";
@@ -8,35 +7,17 @@ const USUARIOS_KEY = "garagem_usuarios";
 
 
 function criarAdminPadrao() {
-
-    let usuarios =
-        JSON.parse(
-            localStorage.getItem(
-                USUARIOS_KEY
-            ) || "[]"
-        );
-
-    usuarios =
-        usuarios.filter(
-            u =>
-                u.email !==
-                "admin@garagem.com"
-        );
-
+    let usuarios = JSON.parse(localStorage.getItem(USUARIOS_KEY) || "[]");
+    usuarios = usuarios.filter(u => u.email !== "admin@garagem.com");
     usuarios.unshift({
         nomeUsuario: "Administrador",
-        email: "admin@garagem.com",
-        matricula: "2025000000",
-        senha: "123456",
-        funcao: "Admin",
-        status: "Ativo"
+        email:       "admin@garagem.com",
+        matricula:   "2025000000",
+        senha:       "123456",
+        funcao:      "Admin",
+        status:      "Ativo"
     });
-
-    localStorage.setItem(
-        USUARIOS_KEY,
-        JSON.stringify(usuarios)
-    );
-
+    localStorage.setItem(USUARIOS_KEY, JSON.stringify(usuarios));
 }
 
 criarAdminPadrao();
@@ -62,8 +43,8 @@ function limparErro(inputEl) {
     if (erro) erro.remove();
 }
 
-function navegarPara(pagina) {
-    window.location.href = pagina;
+function navegarPara(rota) {
+    window.location.href = rota;
 }
 
 
@@ -77,11 +58,7 @@ function salvarUsuarios(lista) {
 }
 
 function buscarUsuarioPorEmail(email) {
-    return (
-        getUsuarios().find(
-            u => u.email.toLowerCase() === email.toLowerCase()
-        ) || null
-    );
+    return getUsuarios().find(u => u.email.toLowerCase() === email.toLowerCase()) || null;
 }
 
 function emailJaCadastrado(email) {
@@ -103,9 +80,7 @@ function cadastrarNovoUsuario(email, nomeUsuario, senha) {
 
 function atualizarSenha(email, novaSenha) {
     const usuarios = getUsuarios();
-    const idx = usuarios.findIndex(
-        u => u.email.toLowerCase() === email.toLowerCase()
-    );
+    const idx = usuarios.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
     if (idx !== -1) {
         usuarios[idx].senha = novaSenha;
         salvarUsuarios(usuarios);
@@ -115,12 +90,7 @@ function atualizarSenha(email, novaSenha) {
 }
 
 function gerarIniciais(nome) {
-    return nome
-        .split(" ")
-        .map(p => p[0])
-        .join("")
-        .toUpperCase()
-        .slice(0, 2);
+    return nome.split(" ").map(p => p[0]).join("").toUpperCase().slice(0, 2);
 }
 
 
@@ -155,38 +125,21 @@ function encerrarSessao() {
 
 
 function redirecionarSeLogado() {
-
-    const sessao =
-        getSessao();
-
-    if (
-        sessao &&
-        sessao.email
-    ) {
-
-        navegarPara(
-            ROTA_APP
-        );
-
-    }
-
+    const sessao = getSessao();
+    if (sessao && sessao.email) navegarPara(ROTA_APP);
 }
 
 
 
 function iniciarLogin() {
-
+    redirecionarSeLogado();
 
     const emailInput  = document.getElementById("email");
     const senhaInput  = document.getElementById("senha");
     const manterInput = document.getElementById("manter");
     const btnEntrar   = document.querySelector(".btn-login");
-    const links       = document.querySelectorAll(".rodape a");
 
     if (!btnEntrar) return;
-
-    if (links[0]) links[0].href = "senha-recuperacao.html";
-    if (links[1]) links[1].href = "email.html";
 
     btnEntrar.addEventListener("click", function () {
         let valido = true;
@@ -216,12 +169,10 @@ function iniciarLogin() {
             mostrarErro(emailInput, "Email não cadastrado. Clique em Cadastre-se.");
             return;
         }
-
         if (usuario.status === "Inativo") {
             mostrarErro(emailInput, "Usuário inativo. Contate o administrador.");
             return;
         }
-
         if (usuario.senha !== senhaInput.value) {
             mostrarErro(senhaInput, "Senha incorreta.");
             return;
@@ -241,10 +192,8 @@ function iniciarLogin() {
 function iniciarEmail() {
     const emailInput = document.getElementById("email");
     const btnNext    = document.querySelector(".btn-next");
-    const link       = document.querySelector(".rodape a");
 
     if (!btnNext || !emailInput) return;
-    if (link) link.href = "index.html";
 
     btnNext.addEventListener("click", function () {
         const email = emailInput.value.trim();
@@ -264,7 +213,7 @@ function iniciarEmail() {
 
         limparErro(emailInput);
         sessionStorage.setItem("emailCadastro", email);
-        navegarPara("confirmacao-email.html");
+        navegarPara("/confirmacao-email/");
     });
 
     emailInput.addEventListener("input", () => limparErro(emailInput));
@@ -301,13 +250,16 @@ function iniciarConfirmacaoEmail() {
         });
     });
 
+    const isRecuperacao = sessionStorage.getItem("fluxoRecuperacao") === "true";
+    const destino = isRecuperacao ? "/redefinir-senha/" : "/cadastro/";
+
     btnNext.addEventListener("click", function () {
         const codigo = Array.from(inputs).map(i => i.value).join("");
         if (codigo.length < 6) {
             alert("Digite o código completo de 6 dígitos.");
             return;
         }
-        navegarPara("cadastro.html");
+        navegarPara(destino);
     });
 }
 
@@ -318,10 +270,8 @@ function iniciarCadastro() {
     const senhaInput          = document.getElementById("senha");
     const confirmarSenhaInput = document.getElementById("confirmar-senha");
     const btnConfirmar        = document.querySelector(".btn-confirmar");
-    const link                = document.querySelector(".rodape a");
 
     if (!btnConfirmar) return;
-    if (link) link.href = "index.html";
 
     btnConfirmar.addEventListener("click", function () {
         let valido = true;
@@ -358,13 +308,12 @@ function iniciarCadastro() {
         const email = sessionStorage.getItem("emailCadastro");
         if (!email) {
             alert("Sessão expirada. Inicie o cadastro novamente.");
-            navegarPara("email.html");
+            navegarPara("/email/");
             return;
         }
-
         if (emailJaCadastrado(email)) {
             alert("Este email já está cadastrado. Faça login.");
-            navegarPara("index.html");
+            navegarPara("/");
             return;
         }
 
@@ -372,7 +321,7 @@ function iniciarCadastro() {
         sessionStorage.removeItem("emailCadastro");
 
         alert("Cadastro realizado com sucesso! Faça login para continuar.");
-        navegarPara("index.html");
+        navegarPara("/");
     });
 
     usuarioInput.addEventListener("input", () => limparErro(usuarioInput));
@@ -407,7 +356,7 @@ function iniciarSenhaRecuperacao() {
         limparErro(emailInput);
         sessionStorage.setItem("emailRecuperacao", email);
         sessionStorage.setItem("fluxoRecuperacao", "true");
-        navegarPara("confirmacao-email.html");
+        navegarPara("/confirmacao-email/");
     });
 
     emailInput.addEventListener("input", () => limparErro(emailInput));
@@ -454,7 +403,7 @@ function iniciarRedefinirSenha() {
         sessionStorage.removeItem("fluxoRecuperacao");
 
         alert("Senha redefinida com sucesso!");
-        navegarPara("index.html");
+        navegarPara("/");
     });
 
     senhaInput.addEventListener("input", () => limparErro(senhaInput));
@@ -464,63 +413,19 @@ function iniciarRedefinirSenha() {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    const pagina =
-        window.location.pathname.split("/").pop() || "index.html";
+    const path = window.location.pathname;
 
-    switch (pagina) {
-        case "index.html":
-        case "":
-            iniciarLogin();
-            break;
-
-        case "email.html":
-            iniciarEmail();
-            break;
-
-        case "confirmacao-email.html":
-            iniciarConfirmacaoEmail();
-
-            if (sessionStorage.getItem("fluxoRecuperacao") === "true") {
-                const btnNext     = document.querySelector(".btn-next");
-                const novoBtnNext = btnNext.cloneNode(true);
-                btnNext.parentNode.replaceChild(novoBtnNext, btnNext);
-
-                const inputs = document.querySelectorAll(".codigo-input");
-                inputs.forEach((input, index) => {
-                    input.addEventListener("input", function () {
-                        this.value = this.value.replace(/[^0-9]/g, "");
-                        if (this.value.length === 1 && index < inputs.length - 1) {
-                            inputs[index + 1].focus();
-                        }
-                    });
-                    input.addEventListener("keydown", function (e) {
-                        if (e.key === "Backspace" && !this.value && index > 0) {
-                            inputs[index - 1].focus();
-                        }
-                    });
-                });
-
-                novoBtnNext.addEventListener("click", function () {
-                    const codigo = Array.from(inputs).map(i => i.value).join("");
-                    if (codigo.length < 6) {
-                        alert("Digite o código completo de 6 dígitos.");
-                        return;
-                    }
-                    navegarPara("redefinir-senha.html");
-                });
-            }
-            break;
-
-        case "cadastro.html":
-            iniciarCadastro();
-            break;
-
-        case "senha-recuperacao.html":
-            iniciarSenhaRecuperacao();
-            break;
-
-        case "redefinir-senha.html":
-            iniciarRedefinirSenha();
-            break;
+    if (path === "/" || path === "/login/") {
+        iniciarLogin();
+    } else if (path === "/email/") {
+        iniciarEmail();
+    } else if (path === "/confirmacao-email/") {
+        iniciarConfirmacaoEmail();
+    } else if (path === "/cadastro/") {
+        iniciarCadastro();
+    } else if (path === "/senha-recuperacao/") {
+        iniciarSenhaRecuperacao();
+    } else if (path === "/redefinir-senha/") {
+        iniciarRedefinirSenha();
     }
 });

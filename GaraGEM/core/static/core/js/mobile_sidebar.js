@@ -1,7 +1,5 @@
 
-
 (function () {
-
     const overlay = document.createElement('div');
     overlay.id = 'overlay-sidebar-mobile';
     overlay.style.cssText = [
@@ -37,13 +35,11 @@
 
     overlay.addEventListener('click', fecharSidebar);
 
-
     document.addEventListener('click', (e) => {
         if (e.target.closest('a.menu-item') && window.innerWidth <= 768) {
             fecharSidebar();
         }
     });
-
 
     try {
         const dados = localStorage.getItem('garagem_sessao') || sessionStorage.getItem('garagem_sessao');
@@ -59,7 +55,6 @@
             }
         }
     } catch (_) {}
-
 
     const logoutArea = document.getElementById('logoutarea');
     if (logoutArea) {

@@ -1,9 +1,5 @@
 
-
-
-
 @media (max-width: 768px) {
-
 
     .header-veiculos,
     .header-usuarios,
@@ -12,7 +8,6 @@
     .header-dashboard {
         padding-left: 70px;
     }
-
 
     .header-dashboard {
         flex-direction: column;
@@ -29,13 +24,11 @@
 
 @media (max-width: 768px) {
 
-
     .cards-dashboard {
         grid-template-columns: repeat(2, 1fr) !important;
         display: grid !important;
         flex-direction: unset !important;
     }
-
 
     .dashboard-secoes {
         display: flex !important;
@@ -58,7 +51,6 @@
         font-size: 16px;
     }
 
-
     .grafico-container {
         height: 220px;
         padding: 14px;
@@ -68,7 +60,6 @@
 
 
 @media (max-width: 768px) {
-
 
     .cards-resumo {
         grid-template-columns: repeat(2, 1fr);
@@ -90,7 +81,6 @@
         font-size: 16px;
     }
 
-
     .filtros-linha {
         flex-direction: column;
         gap: 12px;
@@ -106,7 +96,6 @@
         min-width: unset;
     }
 
-
     .filtro-botoes {
         flex-direction: row;
         gap: 8px;
@@ -116,7 +105,6 @@
     .btn-limpar {
         flex: 1;
     }
-
 
     .tabela-relatorio-header {
         flex-direction: column;
@@ -131,9 +119,7 @@
 }
 
 
-
 @media (max-width: 768px) {
-
 
     .conteudo-veiculos1 {
         flex-direction: column;

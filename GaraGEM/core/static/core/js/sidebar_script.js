@@ -21,7 +21,7 @@ function carregarUsuario() {
         sessionStorage.getItem(SESSAO_KEY);
 
     if (!dados) {
-        window.location.href = "../LOGIN/index.html";
+        window.location.href = "/";
         return;
     }
 
@@ -44,7 +44,7 @@ function verificarSessao() {
         sessionStorage.getItem(SESSAO_KEY);
 
     if (!dados) {
-        window.location.href = "../LOGIN/index.html";
+        window.location.href = "/";
         return null;
     }
 
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 timer:             1500,
                 showConfirmButton: false
             }).then(() => {
-                window.location.href = "../LOGIN/index.html";
+                window.location.href = "/";
             });
         });
     }

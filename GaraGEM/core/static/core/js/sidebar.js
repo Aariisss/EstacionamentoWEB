@@ -42,7 +42,7 @@ function protegerPagina() {
     if (!usuario) {
 
         window.location.href =
-            "LOGIN/index.html";
+            "/";
 
         return false;
     }
@@ -96,7 +96,7 @@ function configurarLogout() {
         }).then(() => {
 
             window.location.href =
-                "LOGIN/index.html";
+                "/";
 
         });
 
@@ -114,7 +114,7 @@ document.addEventListener(
         if (!usuario) return;
 
         const resposta =
-            await fetch("SIDEBAR/sidebar.html");
+            await fetch("");
 
         const html =
             await resposta.text();
@@ -130,13 +130,13 @@ document.addEventListener(
     }
 );
 
-
+// ── Botão hambúrguer ──
 const botaoMenu = document.createElement("button");
 botaoMenu.innerHTML = '<i class="fa-solid fa-bars"></i>';
 botaoMenu.classList.add("menu-mobile");
 document.body.appendChild(botaoMenu);
 
-
+// ── Overlay escuro (fecha sidebar ao clicar fora) ──
 const overlayMobile = document.createElement("div");
 overlayMobile.id = "overlay-sidebar-mobile";
 overlayMobile.style.cssText = [
@@ -173,7 +173,7 @@ botaoMenu.addEventListener("click", () => {
 
 overlayMobile.addEventListener("click", fecharSidebar);
 
-
+// Fecha sidebar ao clicar em qualquer link (mobile)
 document.addEventListener("click", (e) => {
     const link = e.target.closest("a.menu-item");
     if (link && window.innerWidth <= 768) {

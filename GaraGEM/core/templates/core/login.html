@@ -33,7 +33,7 @@
         <button class="btn-login" type="button" id="btn-entrar">Entrar</button>
 
         <div class="rodape">
-            <a href="{% url 'login' %}">Esqueceu sua senha?</a>
+            <a href="{% url 'senha_recuperacao' %}">Esqueceu sua senha?</a>
             <a href="{% url 'cadastro' %}">Cadastre-se</a>
         </div>
     </div>
@@ -41,7 +41,7 @@
     <script src="{% static 'core/js/login.js' %}"></script>
 
     <script>
-
+        // Redireciona para dashboard após login (mock)
         document.getElementById('btn-entrar').addEventListener('click', function () {
             const email = document.getElementById('email').value.trim();
             const senha = document.getElementById('senha').value.trim();
