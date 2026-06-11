@@ -1,0 +1,142 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block titulo %}Relatórios{% endblock %}
+
+{% block conteudo %}
+<div class="layout-relatorio">
+    <div class="container-relatorio">
+
+        <header class="header-relatorio">
+            <h2>Relatórios Operacionais</h2>
+        </header>
+
+        <div class="conteudo-relatorio">
+
+            <div class="painel-filtros">
+                <h3><i class="fa-solid fa-filter"></i> &nbsp;Filtros</h3>
+                <div class="filtros-linha">
+
+                    <div class="filtro-grupo">
+                        <label>De</label>
+                        <input type="date" id="filtro-data-inicio">
+                    </div>
+
+                    <div class="filtro-grupo">
+                        <label>Até</label>
+                        <input type="date" id="filtro-data-fim">
+                    </div>
+
+                    <div class="filtro-grupo">
+                        <label>Placa</label>
+                        <input type="text" id="filtro-placa" placeholder="Ex: ABC-1234" maxlength="8">
+                    </div>
+
+                    <div class="filtro-grupo">
+                        <label>Status</label>
+                        <select id="filtro-status">
+                            <option value="todos">Todos</option>
+                            <option value="estacionado">Estacionado</option>
+                            <option value="fora">Saiu</option>
+                        </select>
+                    </div>
+
+                    <div class="filtro-grupo">
+                        <label>Período do dia</label>
+                        <select id="filtro-periodo">
+                            <option value="todos">Todos</option>
+                            <option value="manha">Manhã (6h–12h)</option>
+                            <option value="tarde">Tarde (12h–18h)</option>
+                            <option value="noite">Noite (18h–6h)</option>
+                        </select>
+                    </div>
+
+                    <div class="filtro-grupo filtro-botoes">
+                        <button class="btn-filtrar" id="btn-filtrar">
+                            <i class="fa-solid fa-magnifying-glass"></i> Filtrar
+                        </button>
+                        <button class="btn-limpar" id="btn-limpar">Limpar</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="cards-resumo">
+                <div class="card-resumo">
+                    <div class="card-resumo-icone icone-total">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+                    <div class="card-resumo-info">
+                        <span class="card-resumo-valor" id="card-total">0</span>
+                        <span class="card-resumo-label">Total de Registros</span>
+                    </div>
+                </div>
+                <div class="card-resumo">
+                    <div class="card-resumo-icone icone-entrada">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </div>
+                    <div class="card-resumo-info">
+                        <span class="card-resumo-valor" id="card-entradas">0</span>
+                        <span class="card-resumo-label">Entradas no Período</span>
+                    </div>
+                </div>
+                <div class="card-resumo">
+                    <div class="card-resumo-icone icone-saida">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </div>
+                    <div class="card-resumo-info">
+                        <span class="card-resumo-valor" id="card-saidas">0</span>
+                        <span class="card-resumo-label">Saídas no Período</span>
+                    </div>
+                </div>
+                <div class="card-resumo">
+                    <div class="card-resumo-icone icone-unicos">
+                        <i class="fa-solid fa-car"></i>
+                    </div>
+                    <div class="card-resumo-info">
+                        <span class="card-resumo-valor" id="card-unicos">0</span>
+                        <span class="card-resumo-label">Placas Únicas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="secao-tabela">
+                <div class="tabela-relatorio-header">
+                    <div class="tabela-relatorio-header1">
+                        <h2>Registros</h2>
+                        <span class="contador-resultados" id="contador-resultados"></span>
+                    </div>
+                    <button class="btn-exportar-csv" id="btn-exportar-csv">
+                        <i class="fa-solid fa-file-csv"></i> Exportar CSV
+                    </button>
+                </div>
+
+                <div class="div-tabela-relatorio">
+                    <table class="tabela-relatorio">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Placa</th>
+                                <th>Modelo</th>
+                                <th>Proprietário</th>
+                                <th>Matrícula</th>
+                                <th>Entrada</th>
+                                <th>Saída</th>
+                                <th>Permanência</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-relatorio-body"></tbody>
+                    </table>
+                </div>
+
+                <div class="relatorio-vazio" id="relatorio-vazio">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <p>Nenhum registro encontrado para os filtros selecionados.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
